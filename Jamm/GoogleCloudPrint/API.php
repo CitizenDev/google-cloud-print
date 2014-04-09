@@ -50,7 +50,7 @@ class API
       'contentType'             => $content_type
     ];
     if (!empty($ticket)) {
-      $data['ticket'] = $ticket;
+      $data['ticket'] = (string)$ticket;
     }
     $response = $this->sendApiRequest('submit', 'POST', $data);
     if (!$response) {
@@ -72,7 +72,7 @@ class API
       'contentType' => 'url'
     ];
     if (!empty($ticket)) {
-      $data['ticket'] = $ticket;
+      $data['ticket'] = (string)$ticket;
     }
     $response = $this->sendApiRequest('submit', 'POST', $data);
     if (!$response) {
@@ -99,7 +99,7 @@ class API
       'contentType'             => $content_type
     ];
     if (!empty($ticket)) {
-      $data['ticket'] = $ticket;
+      $data['ticket'] = (string)$ticket;
     }
     $response = $this->sendApiRequest('submit', 'POST', $data);
     if (!$response) {

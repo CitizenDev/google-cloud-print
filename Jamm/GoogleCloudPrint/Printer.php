@@ -39,7 +39,7 @@ class Printer
   }
 
   /**
-   * @return mixed
+   * @return string
    */
   public function getTicket()
   {
@@ -47,10 +47,10 @@ class Printer
   }
 
   /**
-   * @param mixed $settings
+   * @param string|Ticket $ticket
    */
-  public function setTicket($settings)
+  public function setTicket($ticket)
   {
-    $this->ticket = $settings;
+    $this->ticket = $ticket;
   }
 } 
