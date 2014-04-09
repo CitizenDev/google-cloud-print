@@ -25,7 +25,7 @@ class API
 
   public function getPrinters()
   {
-    $response = $this->sendApiRequest('printers', 'GET');
+    $response = $this->sendApiRequest('search', 'GET');
     if (!$response) {
       return false;
     }
