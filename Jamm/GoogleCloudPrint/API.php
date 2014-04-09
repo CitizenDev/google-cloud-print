@@ -32,7 +32,7 @@ class API
     return $response['printers'];
   }
 
-  public function sendFileToPrinter($printer_id, $job_title, $file_path, $content_type = 'application/pdf')
+  public function sendFileToPrinter($printer_id, $job_title, $file_path, $content_type = 'application/pdf', $ticket = null)
   {
     if (empty($printer_id)) {
       return $this->raiseError("Printer ID required", 400);
@@ -42,13 +42,16 @@ class API
       return $this->raiseError("Can't read file contents", 500);
     }
 
-    $data     = array(
+    $data = [
       'printerid'               => $printer_id,
       'title'                   => $job_title,
       'contentTransferEncoding' => 'base64',
       'content'                 => base64_encode($contents),
       'contentType'             => $content_type
-    );
+    ];
+    if (!empty($ticket)) {
+      $data['ticket'] = $ticket;
+    }
     $response = $this->sendApiRequest('submit', 'POST', $data);
     if (!$response) {
       return false;
@@ -56,18 +59,21 @@ class API
     return true;
   }
 
-  public function sendURLToPrinter($printerid, $printjobtitle, $url)
+  public function sendURLToPrinter($printer_id, $job_title, $url, $ticket = null)
   {
     if (empty($printer_id)) {
       return $this->raiseError("Printer ID required", 400);
     }
 
-    $data     = array(
-      'printerid'   => $printerid,
-      'title'       => $printjobtitle,
+    $data = [
+      'printerid'   => $printer_id,
+      'title'       => $job_title,
       'content'     => $url,
       'contentType' => 'url'
-    );
+    ];
+    if (!empty($ticket)) {
+      $data['ticket'] = $ticket;
+    }
     $response = $this->sendApiRequest('submit', 'POST', $data);
     if (!$response) {
       return false;
@@ -75,7 +81,7 @@ class API
     return true;
   }
 
-  public function sendContentToPrinter($printer_id, $print_job_title, $content, $content_type = 'application/pdf')
+  public function sendContentToPrinter($printer_id, $job_title, $content, $content_type = 'application/pdf', $ticket = null)
   {
     if (empty($printer_id)) {
       return $this->raiseError("Printer ID required", 400);
@@ -85,13 +91,16 @@ class API
       return $this->raiseError("Empty content", 400);
     }
 
-    $data     = array(
+    $data = [
       'printerid'               => $printer_id,
-      'title'                   => $print_job_title,
+      'title'                   => $job_title,
       'contentTransferEncoding' => 'base64',
       'content'                 => base64_encode($content),
       'contentType'             => $content_type
-    );
+    ];
+    if (!empty($ticket)) {
+      $data['ticket'] = $ticket;
+    }
     $response = $this->sendApiRequest('submit', 'POST', $data);
     if (!$response) {
       return false;
