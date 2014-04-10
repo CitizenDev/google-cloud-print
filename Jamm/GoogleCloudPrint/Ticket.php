@@ -16,6 +16,7 @@ class Ticket
   private $media_size_continuous_feed = null;
   private $collate = false;
   private $reverse_order = false;
+  private $vendor_ticket_items = [];
 
   /**
    * @param boolean $collate
@@ -128,6 +129,16 @@ class Ticket
     $this->version = $version;
   }
 
+  public function addVendorTicketItem($id, $value)
+  {
+    $this->vendor_ticket_items[] = ['id' => $id, 'value' => $value];
+  }
+
+  public function setVendorTicketItems(array $value)
+  {
+    $this->vendor_ticket_items = $value;
+  }
+
   public function __toString()
   {
     return json_encode($this->getArray());
@@ -177,6 +188,9 @@ class Ticket
     }
     if ($this->reverse_order) {
       $print['reverse_order'] = ['reverse_order' => $this->reverse_order];
+    }
+    if (!empty($this->vendor_ticket_items)) {
+      $print['vendor_ticket_item'] = $this->vendor_ticket_items;
     }
     $a['print'] = $print;
     return $a;
