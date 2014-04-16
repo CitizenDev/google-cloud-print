@@ -8,7 +8,7 @@ class API
 {
   use Factory;
 
-  private $url = "https://www.google.com/cloudprint/interface/";
+  private $url = 'https://www.google.com/cloudprint/';
   private $throw_exceptions = false;
 
   private $auth_token;
@@ -150,5 +150,37 @@ class API
     }
     trigger_error($error, E_USER_WARNING);
     return false;
+  }
+
+  /**
+   * @return string
+   */
+  public function getAuthToken()
+  {
+    return $this->auth_token;
+  }
+
+  /**
+   * @param string $auth_token
+   */
+  public function setAuthToken($auth_token)
+  {
+    $this->auth_token = $auth_token;
+  }
+
+  /**
+   * @return string
+   */
+  public function getGoogleCloudURL()
+  {
+    return $this->url;
+  }
+
+  /**
+   * @param string $url
+   */
+  public function setGoogleCloudURL($url)
+  {
+    $this->url = $url;
   }
 }
